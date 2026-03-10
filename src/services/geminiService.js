@@ -41,6 +41,8 @@ export async function generateDrivingTests(count = 5, category = null) {
   if (category) {
     prompt += `\nФокус на категории: ${category}`;
   }
+  prompt +=
+    '\n\nВАЖНО: Верни ТОЛЬКО чистый JSON без markdown, без ```json, без backticks, без лишних символов, без комментариев. Начинай сразу с { и заканчивай }.';
 
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash',
