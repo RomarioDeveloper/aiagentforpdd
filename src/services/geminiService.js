@@ -12,6 +12,7 @@ const DRIVING_RULES_PROMPT = `Ты эксперт по Правилам доро
     {
       "id": "уникальный-id",
       "text": "Текст вопроса",
+      "imageUrl": "строгая-ссылка",
       "options": [
         {"letter": "A", "text": "Вариант ответа 1"},
         {"letter": "B", "text": "Вариант ответа 2"},
@@ -29,8 +30,11 @@ const DRIVING_RULES_PROMPT = `Ты эксперт по Правилам доро
 - Всегда 4 варианта ответа (A, B, C, D)
 - correctAnswer - буква правильного варианта
 - Вопросы должны соответствовать реальным ПДД РК
-- Категории: знаки, разметка, перекрестки, обгон, остановка, светофор, прочее
-- Используй разнообразные темы из ПДД`;
+- Категорически важно: Если вопрос про ЗНАК ПДД, ты ОБЯЗАН вставить в \`imageUrl\` точную ссылку по шаблону:
+  "https://commons.wikimedia.org/wiki/Special:FilePath/{НОМЕР}_Russian_road_sign.svg"
+  (Например, для знака 2.5: "https://commons.wikimedia.org/wiki/Special:FilePath/2.5_Russian_road_sign.svg")
+- НИКОГДА не пытайся генерировать ссылки с /thumb/ или хэшами. Используй только этот шаблон!
+- Если вопрос не про знаки и картинка не нужна, возвращай null.`;
 
 export async function generateDrivingTests(count = 5, category = null) {
   if (!ai) {
